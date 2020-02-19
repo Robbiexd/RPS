@@ -1,0 +1,32 @@
+﻿<Window x:Class="RPS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RPS"
+        xmlns:viewmodel="clr-namespace:RPS.ViewModel"
+        xmlns:converter="clr-namespace:RPS.ViewModel.Converters"
+        xmlns:model="clr-namespace:RPS.Model"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="376.666" Width="493.333">
+    <Window.Resources>
+        <BitmapImage x:Key="Rock" UriSource="Assets/rock.png"></BitmapImage>
+        <BitmapImage x:Key="Scissors" UriSource="Assets/scissors.jpg"></BitmapImage>
+        <BitmapImage x:Key="Paper" UriSource="Assets/paper.jpg"></BitmapImage>
+        <BitmapImage x:Key="None" UriSource="Assets/white.jpg"></BitmapImage>
+        <converter:ResultToPicture x:Key="ResultToPictureConverter" Rock="{StaticResource Rock}" Scissors="{StaticResource Scissors}" Paper="{StaticResource Paper}" Default="{StaticResource None}" />
+    </Window.Resources>
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Button x:Name="Rock" Content="Rock" HorizontalAlignment="Left" Margin="57,302,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Play}" CommandParameter="1"/>
+        <Button x:Name="Paper" Content="Paper" HorizontalAlignment="Left" Height="21" Margin="200,302,0,0" VerticalAlignment="Top" Width="64" Command="{Binding Play}" CommandParameter="3"/>
+        <Button x:Name="Scissors" Content="Scissors" HorizontalAlignment="Left" Margin="339,302,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Play}" CommandParameter="2"/>
+        <Label x:Name="playerScore" Content="{Binding Player}" HorizontalAlignment="Left" Margin="75,126,0,0" VerticalAlignment="Top" Height="51" Width="57"/>
+        <Label x:Name="computerScore" Content="{Binding Computer}" HorizontalAlignment="Left" Margin="339,126,0,0" VerticalAlignment="Top" Height="51" Width="57"/>
+        <Image x:Name="PlayerImg" HorizontalAlignment="Left" Height="72" Margin="57,177,0,0" VerticalAlignment="Top" Width="89" Source="{Binding Player, Converter={StaticResource ResultToPicture}}"/>
+        <Image x:Name="ComputerImg" HorizontalAlignment="Left" Height="72" Margin="325,177,0,0" VerticalAlignment="Top" Width="89" Source="{Binding Player, Converter={StaticResource ResultToPicture}}"/>
+
+    </Grid>
+</Window>
